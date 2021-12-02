@@ -8,6 +8,9 @@ class Survey(models.Model):
     end_date = models.DateTimeField()
     survey_description = models.CharField(verbose_name='Описание опроса', max_length=200)
 
+    def __str__(self):
+        return self.survey_name
+
 
 class Question(models.Model):
     survey = models.ForeignKey(Survey, verbose_name='Опрос', on_delete=models.CASCADE)
@@ -19,10 +22,16 @@ class Question(models.Model):
     ]
     question_type = models.IntegerField(verbose_name='Тип вопроса', choices=QUESTION_TYPES)
 
+    def __str__(self):
+        return self.question_text
+
 
 class Option(models.Model):
     question = models.ForeignKey(Question, verbose_name='К вопросу: ', on_delete=models.CASCADE)
     option_name = models.CharField(verbose_name='Вариант', max_length=200)
+
+    def __str__(self):
+        return self.option_name
 
 
 class Answer(models.Model):
